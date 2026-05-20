@@ -1,4 +1,5 @@
 const API_URL = 'https://api.oluwasetemi.dev/posts?all=true&status=PUBLISHED';
+const MAX_VISIBLE_POSTS = 9;
 
 let cachedPosts;
 
@@ -29,6 +30,32 @@ function normalizePost(post, index) {
     excerpt,
     content,
   };
+}
+
+function getPostKey(post) {
+  return post.title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function uniquePosts(posts) {
+  const seen = new Set();
+
+  return posts.filter((post) => {
+    const keys = [
+      getPostKey(post),
+      post.id.toLowerCase(),
+      post.content.toLowerCase().slice(0, 90),
+    ].filter(Boolean);
+
+    if (keys.some((key) => seen.has(key))) {
+      return false;
+    }
+
+    keys.forEach((key) => seen.add(key));
+    return true;
+  });
 }
 
 function extractPosts(payload) {
@@ -71,7 +98,7 @@ export async function fetchPosts() {
   }
 
   const payload = await response.json();
-  cachedPosts = extractPosts(payload).map(normalizePost);
+  cachedPosts = uniquePosts(extractPosts(payload).map(normalizePost)).slice(0, MAX_VISIBLE_POSTS);
 
   return cachedPosts;
 }
