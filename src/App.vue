@@ -1,7 +1,7 @@
 <template>
   <div class="app-shell" :data-theme="theme">
     <header class="site-header">
-      <RouterLink class="brand" to="/">Vue Blog</RouterLink>
+      <RouterLink class="brand" to="/">Echo Journal</RouterLink>
       <div class="header-actions">
         <nav aria-label="Primary navigation">
           <RouterLink to="/">Home</RouterLink>

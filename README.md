@@ -1,6 +1,10 @@
-# Vue Router Blog App
+# Echo Journal
 
 A simple blog application built with Vue 3, Vite, and Vue Router. The app fetches published posts from `https://api.oluwasetemi.dev/`, displays a short list of unique blog posts, and lets users open each post on a detail page.
+
+## Live Site
+
+[https://vuebblogg.netlify.app/](https://vuebblogg.netlify.app/)
 
 ## Features
 
